@@ -104,9 +104,9 @@ CREATE TABLE system_settings (
   setting_value VARCHAR(255)
 );
 
-CREATE TABLE authority(
+CREATE TABLE Authority(
 id INTEGER AUTO_INCREMENT PRIMARY KEY,
 authority VARCHAR(256),
 member_id INTEGER,
-FOREIGN KEY(user_id) REFERENCES users(user_id)
+FOREIGN KEY(member_id) REFERENCES users(user_id)
 );
