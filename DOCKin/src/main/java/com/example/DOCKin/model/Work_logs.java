@@ -9,7 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -18,19 +18,27 @@ import java.sql.Date;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)    //정할 때 마다 기록됨
 
-public class work_logs {
+public class Work_logs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private  Long log_id;
+
     private String title;
     private String log_text;
+
     @CreatedDate
-    private Date created_at;
+    @Column(updatable = false)
+    private LocalDateTime created_at;
+
     @LastModifiedDate
-    private Date updated_at;
+    private LocalDateTime updated_at;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="equipment_id")
+    private Equipment equipment;
 
 }

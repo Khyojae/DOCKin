@@ -3,17 +3,17 @@ package com.example.DOCKin.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
-
+import java.time.LocalDateTime;
 @Data
 @Builder
 public class Work_logsDto {
     private Long log_id;
-    private Long user_id;
+    private String user_id;
     private Long equipment_id;
     private String title;
     private String log_text;
-    private Date created_at;
-    private Date updated_at;
+
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
 
 }

@@ -1,16 +1,25 @@
+-- 1. 모든 관련 외래 키 제약 조건을 먼저 제거합니다.
+DROP TABLE IF EXISTS authority;
+DROP TABLE IF EXISTS work_logs;
 
+-- 2. 메인 테이블들을 삭제합니다.
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS equipment;
+
+-- 3. (필요하다면) 시퀀스도 삭제합니다.
+-- DROP SEQUENCE IF EXISTS hibernate_sequence;
+-- DROP SEQUENCE IF EXISTS users_seq;
 --민정님 노션에 있는거 긁어옴--
 -- 1. 사용자
 CREATE TABLE users (
-  user_id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(100),
-  password VARCHAR(256) NOT NULL,
-  role ENUM('worker', 'admin') NOT NULL,
-  language_code VARCHAR(10) DEFAULT 'ko',
-  tts_enabled BOOLEAN DEFAULT TRUE,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    user_id VARCHAR(50) PRIMARY KEY, -- String PK (사번)
+    name VARCHAR(100),
+    password VARCHAR(256) NOT NULL,
+    role VARCHAR(50) NOT NULL, -- ENUM 대신 VARCHAR 사용
+    language_code VARCHAR(10) DEFAULT 'ko',
+    tts_enabled BOOLEAN DEFAULT TRUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 -- 2. 장비 정보
 CREATE TABLE equipment (
   equipment_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,17 +34,18 @@ CREATE TABLE equipment (
 );
 
 -- 3. 작업 일지 (음성 → 텍스트 저장)
+-- 이제 work_logs 테이블의 외래 키 설정도 String 타입으로 맞춰야 합니다.
 CREATE TABLE work_logs (
-  log_id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT,
-  title VARCHAR(256),
-  equipment_id INT,
-  log_text TEXT,
-  audio_file_url VARCHAR(255),
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP --추가 1101--,
-  FOREIGN KEY (user_id) REFERENCES users(user_id),
-  FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id)
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50), -- FK 타입을 String으로 변경
+    title VARCHAR(256),
+    equipment_id INT,
+    log_text TEXT,
+    audio_file_url VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id)
 );
 
 -- 4. 장비 메모
