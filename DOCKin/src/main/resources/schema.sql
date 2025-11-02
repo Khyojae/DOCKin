@@ -28,10 +28,12 @@ CREATE TABLE equipment (
 CREATE TABLE work_logs (
   log_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT,
+  title VARCHAR(256),
   equipment_id INT,
   log_text TEXT,
   audio_file_url VARCHAR(255),
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP --추가 1101--,
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id)
 );

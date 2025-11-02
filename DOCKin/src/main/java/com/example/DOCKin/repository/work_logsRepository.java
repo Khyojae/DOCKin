@@ -1,0 +1,10 @@
+package com.example.DOCKin.repository;
+import com.example.DOCKin.model.work_logs; //
+import com.example.DOCKin.model.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+public interface work_logsRepository extends JpaRepository<work_logs,Long>{
+    @Transactional
+    void deleteAllByMember(Member member);
+}

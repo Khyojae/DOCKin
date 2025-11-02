@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long log_id;
     private String authority;
     @ManyToOne
     @JoinColumn(name="member_id")
