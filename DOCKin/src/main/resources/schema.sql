@@ -122,3 +122,30 @@ authority VARCHAR(256),
 member_id VARCHAR(50),
 FOREIGN KEY(member_id) REFERENCES users(user_id)
 );
+
+-- 11. 근태 관리 (Attendance) 테이블
+CREATE TABLE attendance (
+    -- 기본 키 (자동 증가)
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    -- 사용자 연관 관계 (users.user_id 참조)
+    user_id VARCHAR(50) NOT NULL,
+
+    -- 근태 시간 기록
+    clock_in_time DATETIME NOT NULL,
+    clock_out_time DATETIME, -- 퇴근 시간 (nullable)
+
+    -- 근무 일자 및 상태
+    work_date DATE NOT NULL,
+    status VARCHAR(20) NOT NULL, -- 'NORMAL', 'LATE', 'ABSENT' 등
+
+    -- 위치 정보
+    in_location VARCHAR(255),    -- 출근 시 위치/리더기 정보
+    out_location VARCHAR(255),   -- 퇴근 시 위치/리더기 정보
+
+    -- 외래 키 설정
+    CONSTRAINT fk_attendance_member
+        FOREIGN KEY (user_id)
+        REFERENCES users (user_id)
+);
+
