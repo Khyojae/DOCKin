@@ -27,6 +27,7 @@ repositories {
 dependencies {
 	// MySQL DB 연결을 위한 드라이버 추가
 	runtimeOnly("com.mysql:mysql-connector-j")
+	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")

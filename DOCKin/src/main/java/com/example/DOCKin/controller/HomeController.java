@@ -12,12 +12,17 @@ public class HomeController {
 
     @GetMapping("/")
     public String getHome(){
-        return "redirect:/main";
+        return "redirect:/login";
     }
 
-    @GetMapping("/main")
+    @GetMapping("/admin/main")
+    public String adminMain() {
+        return "admin/main"; // templates/main.html을 찾습니다.
+    }
+
+    @GetMapping("/user/main")
     public String mainPage() {
-        return "main"; // templates/main.html을 찾습니다.
+        return "user/main"; // templates/main.html을 찾습니다.
     }
 
     @GetMapping("/login")

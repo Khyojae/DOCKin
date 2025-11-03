@@ -29,7 +29,7 @@ public class MemberService implements UserDetailsService {
         String roleString = member.getRole();
 
         List<SimpleGrantedAuthority> authorities = List.of(
-                new SimpleGrantedAuthority("ROLE_" + roleString.toUpperCase())
+                new SimpleGrantedAuthority(roleString)
         );
         return new MemberUserDetails(member, authorities);
     }

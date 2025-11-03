@@ -53,7 +53,7 @@ CREATE TABLE equipment_memos (
   memo_id INT PRIMARY KEY AUTO_INCREMENT,
   equipment_id INT,
   memo_text TEXT,
-  created_by INT,
+  created_by VARCHAR(50),
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id),
   FOREIGN KEY (created_by) REFERENCES users(user_id)
@@ -82,7 +82,7 @@ CREATE TABLE checklist_items (
 CREATE TABLE checklist_results (
   result_id INT PRIMARY KEY AUTO_INCREMENT,
   checklist_id INT,
-  user_id INT,
+  user_id VARCHAR(50),
   equipment_id INT,
   checked_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (checklist_id) REFERENCES checklists(checklist_id),
@@ -95,7 +95,7 @@ CREATE TABLE notifications (
   notification_id INT PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255),
   message TEXT,
-  target_user_id INT,
+  target_user_id VARCHAR(50),
   due_at DATETIME,
   sent BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (target_user_id) REFERENCES users(user_id)
@@ -103,7 +103,7 @@ CREATE TABLE notifications (
 
 -- 9. 사용자 언어/음성 설정
 CREATE TABLE language_settings (
-  user_id INT PRIMARY KEY,
+  user_id VARCHAR(50) PRIMARY KEY,
   preferred_language VARCHAR(10) DEFAULT 'ko',
   tts_enabled BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
@@ -119,6 +119,6 @@ CREATE TABLE system_settings (
 CREATE TABLE Authority(
 id INTEGER AUTO_INCREMENT PRIMARY KEY,
 authority VARCHAR(256),
-member_id INTEGER,
+member_id VARCHAR(50),
 FOREIGN KEY(member_id) REFERENCES users(user_id)
 );

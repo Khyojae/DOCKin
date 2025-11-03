@@ -1,6 +1,9 @@
 package com.example.DOCKin.config;
 
 import com.example.DOCKin.service.MemberService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +11,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +67,7 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .loginProcessingUrl("/login") // 로그인 처리 POST 요청 URL (이 URL로 요청을 보냄)
                         .usernameParameter("user_id")
-                        .defaultSuccessUrl("/",true) // 로그인 성공 시 이동할 URL
+                        .successHandler(this::determineTargetUrl) // 로그인 성공 시 이동할 URL
                         .permitAll() // loginPage와 관련된 리소스에 모두 접근 허용
                 )
 
@@ -76,4 +83,21 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+    private void determineTargetUrl(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    Authentication authentication) throws IOException, ServletException {
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(a ->a.getAuthority().equals("ROLE_ADMIN"));
+        String targetUrl;
+        if(isAdmin){
+            targetUrl="/admin/main";
+        }else{
+            targetUrl="/user/main";
+        }
+
+        new SimpleUrlAuthenticationSuccessHandler(targetUrl).onAuthenticationSuccess(request,response,authentication);
+    }
+
+
+
 }

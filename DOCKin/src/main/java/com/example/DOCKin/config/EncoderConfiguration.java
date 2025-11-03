@@ -15,7 +15,7 @@ public class EncoderConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        String idForEncode = "bcrypt";
+        String idForEncode = "noop";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put(idForEncode, new BCryptPasswordEncoder());
         encoders.put("noop", NoOpPasswordEncoder.getInstance());
