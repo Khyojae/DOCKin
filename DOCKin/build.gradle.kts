@@ -25,6 +25,9 @@ repositories {
 }
 
 dependencies {
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5") // API
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5") // 구현체
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") // JSON 파서
 	// MySQL DB 연결을 위한 드라이버 추가
 	runtimeOnly("com.mysql:mysql-connector-j")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
