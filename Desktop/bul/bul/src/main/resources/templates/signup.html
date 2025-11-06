@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      th:repalce="~{base-layout::layout(~{::section})}"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<section class="container">
+    <h1>회원가입</h1>
+    <form th:object="${member}" th:action="@{/signup}" method="post">
+        <div class="mb-3">
+            <label class="form-label">이름</label>
+            <input type="text" class="form-control" th:field="*{name}">
+            <p th:if="${#fields.hasErrors('name)}" th:errors="*{name}"
+               class="text-danger">Name Error</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">이메일</label>
+            <input type="text" class="form-control" th:field="*{email}">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email Error</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">비밀번호</label>
+            <input type="password" class="form-control" th:field="*{password}">
+            <p th:if="${#fields.hasErrors('password')}"
+               th:errors="*{password}" class="text-danger">Password Error</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">비밀번호 확인</label>
+            <input type="password" class="form-control" th:field="*{passwordConfirm}">
+            <p th:if="${#fields.hasErrors('passwordConfirm')}"
+               th:errors="*{passwordConfirm}" class="text-danger">PasswordConfirm Error</p>
+        </div>
+        <button type="submit" class="btn btn-primary">생성</button>
+    </form>
+</section>
+</body>
+</html>
