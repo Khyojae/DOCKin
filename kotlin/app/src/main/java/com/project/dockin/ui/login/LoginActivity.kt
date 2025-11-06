@@ -32,7 +32,8 @@ class LoginActivity : AppCompatActivity() {
                     .onSuccess {
                         tokenStore.jwt = it.token
                         Toast.makeText(this@LoginActivity, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                        // TODO: 홈 화면으로 이동
+                        startActivity(android.content.Intent(this@LoginActivity, com.project.dockin.ui.home.HomeActivity::class.java))
+                        finish()
                     }
                     .onFailure {
                         Toast.makeText(this@LoginActivity, "실패: ${it.message}", Toast.LENGTH_SHORT).show()
