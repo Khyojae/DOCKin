@@ -39,5 +39,8 @@ public class Member {
 
     @Column(updatable=false)
     private LocalDateTime created_at; // SQL: created_at과 매핑
+
+    @Column(nullable = false)
+    private String shipYardArea; // 예: "제8조선소"
 }
 

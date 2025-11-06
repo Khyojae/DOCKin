@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                 // 인가(Authorization) 설정 시작
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/signup", "/login","/api/auth/**").permitAll()
+                        .requestMatchers("/api/work-logs/**").authenticated()
                         .requestMatchers("/member/**", "/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
 

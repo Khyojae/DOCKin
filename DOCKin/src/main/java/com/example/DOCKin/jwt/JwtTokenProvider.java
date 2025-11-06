@@ -65,9 +65,9 @@ public class JwtTokenProvider {
                 Arrays.stream(claims.get("auth").toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-
+        String userId = claims.getSubject();
         UserDetails principal = memberService.loadUserByUsername(claims.getSubject());
-        return new UsernamePasswordAuthenticationToken(principal,token,authorities);
+        return new UsernamePasswordAuthenticationToken(userId, token, authorities);
     }
 
     public boolean validateToken(String token){

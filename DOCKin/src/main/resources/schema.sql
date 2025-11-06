@@ -18,7 +18,8 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL, -- ENUM 대신 VARCHAR 사용
     language_code VARCHAR(10) DEFAULT 'ko',
     tts_enabled BOOLEAN DEFAULT TRUE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ship_yard_area VARCHAR(100) NOT NULL
 );
 -- 2. 장비 정보
 CREATE TABLE equipment (
@@ -101,14 +102,6 @@ CREATE TABLE notifications (
   FOREIGN KEY (target_user_id) REFERENCES users(user_id)
 );
 
--- 9. 사용자 언어/음성 설정
-CREATE TABLE language_settings (
-  user_id VARCHAR(50) PRIMARY KEY,
-  preferred_language VARCHAR(10) DEFAULT 'ko',
-  tts_enabled BOOLEAN DEFAULT TRUE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
 -- 10. 시스템 설정 (예: 카메라 옵션)
 CREATE TABLE system_settings (
   setting_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -119,8 +112,8 @@ CREATE TABLE system_settings (
 CREATE TABLE Authority(
 id INTEGER AUTO_INCREMENT PRIMARY KEY,
 authority VARCHAR(256),
-member_id VARCHAR(50),
-FOREIGN KEY(member_id) REFERENCES users(user_id)
+user_id VARCHAR(50),
+FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 -- 11. 근태 관리 (Attendance) 테이블

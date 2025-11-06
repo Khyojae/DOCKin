@@ -24,6 +24,8 @@ public class Work_logs {
     private  Long log_id;
 
     private String title;
+
+    @Column(name = "log_text", columnDefinition = "TEXT")
     private String log_text;
 
     @CreatedDate
