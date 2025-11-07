@@ -57,6 +57,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/safety/courses/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/safety/enroll/**").hasAnyRole("USER", "ADMIN")
 
+                        // ⭐ 누락된 근로 동의서 관련 경로 추가 (USER, ADMIN 모두 허용)
+                        .requestMatchers("/api/safety/agreement/**").hasAnyRole("USER", "ADMIN")
+
                         // 3. 관리자 전용 (CRUD 및 현황 조회)
                         .requestMatchers("/api/safety/admin/**").hasRole("ADMIN")
                         .requestMatchers("/member/**", "/admin/**").hasRole("ADMIN")

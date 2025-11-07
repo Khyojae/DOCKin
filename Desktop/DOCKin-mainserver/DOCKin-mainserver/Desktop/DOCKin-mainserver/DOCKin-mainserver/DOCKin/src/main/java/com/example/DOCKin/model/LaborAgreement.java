@@ -1,9 +1,7 @@
 package com.example.DOCKin.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import java.time.LocalDate;
@@ -12,6 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "labor_agreements")
 @Getter
+@Setter
+@Builder(toBuilder = true)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 // UNIQUE KEY uk_user_month (user_id, agreement_month) 를 반영
 @IdClass(LaborAgreementId.class)

@@ -13,6 +13,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class LaborAgreementId implements Serializable {
 
-    private String user; // LaborAgreement의 필드명(user)과 일치해야 함
+    private User user; // LaborAgreement의 필드명(user)과 일치해야 함
     private LocalDate agreementMonth; // LaborAgreement의 필드명(agreementMonth)과 일치해야 함
 }
