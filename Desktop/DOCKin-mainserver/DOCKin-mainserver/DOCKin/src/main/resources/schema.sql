@@ -142,3 +142,93 @@ CREATE TABLE attendance (
         REFERENCES users (user_id)
 );
 
+-- 12. 채팅방 정보
+CREATE TABLE chat_rooms (
+    room_id INT PRIMARY KEY AUTO_INCREMENT,
+    room_name VARCHAR(100), -- 단체방 이름 (1:1 방은 NULL 가능)
+    is_group BOOLEAN DEFAULT FALSE, -- 단체방 여부 (TRUE: 단체, FALSE: 1:1)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 13. 채팅방 참여자
+CREATE TABLE chat_members (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    room_id INT NOT NULL,
+    user_id VARCHAR(50) NOT NULL,
+    joined_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_read_time DATETIME DEFAULT CURRENT_TIMESTAMP, -- 마지막 읽은 시간 (안읽은 메시지 수 계산용)
+    FOREIGN KEY (room_id) REFERENCES chat_rooms(room_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- 14. 채팅 메시지
+CREATE TABLE chat_messages (
+    message_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    room_id INT NOT NULL,
+    sender_id VARCHAR(50) NOT NULL,
+    content TEXT NOT NULL,
+    sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (room_id) REFERENCES chat_rooms(room_id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- 15. 근태 요청 (병결/휴가 서류 등록)
+CREATE TABLE absence_requests (
+    request_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    request_type VARCHAR(20) NOT NULL, -- 'SICK'(병결), 'VACATION'(휴가)
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    reason TEXT,
+    document_url VARCHAR(255), -- 서류 파일 (이미지/PDF) 저장 경로 (S3 등)
+    status VARCHAR(20) DEFAULT 'PENDING', -- 'PENDING'(대기), 'APPROVED'(승인), 'REJECTED'(거절)
+    requested_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    processed_by VARCHAR(50), -- 승인/거절 처리한 관리자
+    processed_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (processed_by) REFERENCES users(user_id)
+);
+
+-- 16. 긴급 연락처
+CREATE TABLE emergency_contacts (
+    contact_id INT PRIMARY KEY AUTO_INCREMENT,
+    team_name VARCHAR(50) NOT NULL, -- 예: 'Security Team', 'Fire Safety'
+    contact_number VARCHAR(20) NOT NULL,
+    is_primary BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 17. 안전 교육 과정 정보
+CREATE TABLE safety_courses (
+    course_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    video_url VARCHAR(255) NOT NULL,
+    duration_minutes INT DEFAULT 0,
+    is_mandatory BOOLEAN DEFAULT TRUE, -- 필수 이수 여부
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 18. 사용자별 안전 교육 이수 상태
+CREATE TABLE safety_enrollments (
+    enrollment_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    course_id INT NOT NULL,
+    is_completed BOOLEAN DEFAULT FALSE,
+    completion_date DATETIME, -- 이수 완료 시각 (NULL이면 미이수)
+    enrolled_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES safety_courses(course_id) ON DELETE CASCADE,
+    UNIQUE KEY uk_user_course (user_id, course_id)
+);
+
+-- 19. 월별 근로 동의서 서명 기록
+CREATE TABLE labor_agreements (
+    agreement_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    agreement_month DATE NOT NULL, -- 해당 월의 1일 (YYYY-MM-01)
+    is_signed BOOLEAN DEFAULT FALSE, -- 서명 여부
+    signed_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    UNIQUE KEY uk_user_month (user_id, agreement_month)
+);
