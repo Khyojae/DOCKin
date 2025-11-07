@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# 추가: 로그 및 기타 운영 체제 파일
+*.log
+Thumbs.db
+.DS_Store
+
+
