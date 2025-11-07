@@ -1,3 +1,0 @@
-CREATE TABLE test_table (fb1 INT, fd2 INT) ENGINE=INNODB;
-
-SHOW GLOBAL STATUS LIKE 'Handler%';
