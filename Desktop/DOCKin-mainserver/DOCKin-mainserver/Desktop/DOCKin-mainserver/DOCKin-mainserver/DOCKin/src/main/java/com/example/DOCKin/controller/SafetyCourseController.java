@@ -22,7 +22,7 @@ public class SafetyCourseController {
     @PostMapping // 이 메서드가 교육자료 등록을 담당합니다.
     public ResponseEntity<SafetyCourse> createCourse(@RequestBody CourseCreateRequest request) {
         // 실제 환경에서는 인증/인가를 통해 관리자 ID를 가져와야 함
-        String adminId = "A12345"; // 임시 관리자 ID
+        String adminId = "1001"; // 임시 관리자 ID
 
         SafetyCourse newCourse = courseService.createCourse(request, adminId);
         return new ResponseEntity<>(newCourse, HttpStatus.CREATED); // 201 Created

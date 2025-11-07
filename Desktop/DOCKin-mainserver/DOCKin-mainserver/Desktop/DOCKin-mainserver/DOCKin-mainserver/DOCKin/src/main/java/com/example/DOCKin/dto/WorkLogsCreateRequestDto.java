@@ -1,5 +1,6 @@
     package com.example.DOCKin.dto;
 
+    import com.fasterxml.jackson.annotation.JsonProperty;
     import lombok.Builder;
     import lombok.Data;
     import lombok.Getter;
@@ -14,7 +15,10 @@
     public class WorkLogsCreateRequestDto {
         private String title;
         private String log_text;
+
+        @JsonProperty("equipment_id")
         private Long equipmentId;
+
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
     }

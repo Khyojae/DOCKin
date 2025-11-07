@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.example.DOCKin.model.Equipment;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,11 +46,16 @@ public class Work_logsService {
         Member member = memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found : "+userId));
 
+        Equipment equipment = null;
+        if (createDto.getEquipmentId() != null) { // WorkLogsCreateRequestDto에 getEquipmentId()가 있다고 가정
+            equipment = equipmentRepository.findById(createDto.getEquipmentId())
+                    .orElse(null);
+        }
         Work_logs newLog = Work_logs.builder()
                 .member(member)
                 .title(createDto.getTitle()) // 오타 수정 완료
                 .log_text(createDto.getLog_text())
-                .equipment(null) // Equipment는 현재 null로 가정
+                .equipment(equipment) // Equipment는 현재 null로 가정
                 .build();
 
         Work_logs savedLog = work_logsRepository.save(newLog);
