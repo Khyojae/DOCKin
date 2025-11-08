@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -15,6 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -38,6 +42,7 @@ public class SecurityConfiguration {
             throws Exception {
 
         http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -67,6 +72,7 @@ public class SecurityConfiguration {
 
                         // 4. 나머지 모든 요청은 인증 필요
                         .anyRequest().authenticated()
+
                 )
 
                 .addFilterBefore(
@@ -74,5 +80,21 @@ public class SecurityConfiguration {
                         UsernamePasswordAuthenticationFilter.class
                 );
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // ⭐ 필요에 따라 설정 변경 (예: 프론트엔드 URL, 허용 메서드 등)
+        configuration.addAllowedOriginPattern("*"); // 모든 출처 허용 (보안에 주의하여 특정 출처로 제한 권장)
+        configuration.addAllowedMethod("*"); // 모든 HTTP 메서드 (GET, POST, PUT, DELETE 등) 허용
+        configuration.addAllowedHeader("*"); // 모든 헤더 허용 (Authorization 등)
+        configuration.setAllowCredentials(true); // 자격 증명(쿠키, 인증 헤더) 허용
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // 모든 경로 (/**)에 대해 위의 설정 적용
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
