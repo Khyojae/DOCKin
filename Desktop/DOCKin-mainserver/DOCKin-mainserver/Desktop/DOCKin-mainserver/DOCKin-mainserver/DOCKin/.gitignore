@@ -41,7 +41,7 @@ out/
 Thumbs.db
 .DS_Store
 
-
+**Firebase-DOCKin.json**
 # Git 오염 방지 (이 부분이 중요)
 # 현재 터미널 위치(DOCKin) 기준으로 상위 폴더 무시
 ../../
