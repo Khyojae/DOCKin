@@ -57,6 +57,7 @@ public class SecurityConfiguration {
 
                         // 1. 인증이 필요 없는 공통 API (로그인, 회원가입)
                         .requestMatchers("/", "/signup", "/login", "/api/auth/**").permitAll()
+                        .requestMatchers("/api/notifications/**").hasAnyRole("USER", "ADMIN")
 
                         // 2. 근로자/관리자 모두 접근 (조회 및 이수 처리)
                         .requestMatchers("/api/safety/courses/**").hasAnyRole("USER", "ADMIN")
