@@ -1,0 +1,13 @@
+name: fastapi-ai
+channels: [conda-forge, default]
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - fastapi
+      - "uvicorn[standard]"
+      - pydantic-settings
+      - httpx
+      - redis
+      - boto3
+      - python-dotenv
