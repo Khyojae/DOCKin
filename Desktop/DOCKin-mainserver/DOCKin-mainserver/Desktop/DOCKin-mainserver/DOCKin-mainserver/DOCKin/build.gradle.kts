@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.compileOnly
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.5.7"
@@ -25,6 +28,12 @@ repositories {
 }
 
 dependencies {
+	// 1. Spring WebFlux (WebClient 사용을 위해 필수)
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+	// 2. Lombok (Data, Builder, RequiredArgsConstructor 등을 위해 필수)
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
 	implementation("com.google.firebase:firebase-admin:9.2.0")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5") // API
