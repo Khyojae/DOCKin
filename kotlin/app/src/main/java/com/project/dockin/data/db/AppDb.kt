@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [WorkLogLocal::class], version = 1)
 abstract class AppDb : RoomDatabase() {
     abstract fun workLogDao(): WorkLogDao
-
+    abstract fun safetyCourseDao(): SafetyCourseDao
     companion object {
         fun get(ctx: Context) =
             Room.databaseBuilder(ctx, AppDb::class.java, "beam.db").build()
