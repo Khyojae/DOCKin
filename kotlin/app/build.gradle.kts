@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")   // kapt 플러그인
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -17,8 +17,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8081/\"") // 에뮬레이터
+            isMinifyEnabled = false
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"https://api.yourdomain.com/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -27,7 +35,7 @@ android {
         }
     }
 
-    //JDK 17
+    // JDK 17
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

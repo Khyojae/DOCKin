@@ -22,8 +22,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val retrofit = Network.retrofit(this,
-            baseUrl = "https://ccf61d97-acab-43da-8b24-9ea5898d2750.mock.pstmn.io")
+        val retrofit = Network.retrofit(this)
         api = retrofit.create(AttendanceApi::class.java)
 
         findViewById<Button>(R.id.btnIn).setOnClickListener {
