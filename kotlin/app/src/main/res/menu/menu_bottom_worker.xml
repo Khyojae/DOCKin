@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_worker_home"
+        android:title="출퇴근" />
+    <item
+        android:id="@+id/tab_chat"
+        android:title="채팅" />
+    <item
+        android:id="@+id/tab_worklog"
+        android:title="작업일지" />
+    <item
+        android:id="@+id/tab_nav"
+        android:title="내비게이션" />
+    <item
+        android:id="@+id/tab_safety_learn"
+        android:title="안전교육" />
+</menu>

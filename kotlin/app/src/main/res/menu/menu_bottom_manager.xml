@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_manager_home"
+        android:title="관리자기능" />
+    <item
+        android:id="@+id/tab_chat"
+        android:title="채팅" />
+    <item
+        android:id="@+id/tab_worklog"
+        android:title="작업일지" />
+    <item
+        android:id="@+id/tab_nav"
+        android:title="네비게이션" />
+    <item
+        android:id="@+id/tab_safety_admin"
+        android:title="안전점검" />
+</menu>
