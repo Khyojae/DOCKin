@@ -9,7 +9,7 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/tvMeta"
+        android:id="@+id/tvBody"
         android:textSize="12sp" android:alpha="0.7"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="4dp"/>

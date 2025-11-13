@@ -19,8 +19,8 @@ object Network {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .callFactory(ok)                                 // ← 변경 포인트
+            .baseUrl(BuildConfig.BASE_URL)   // 여기만 믿고 가기
+            .client(ok)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }

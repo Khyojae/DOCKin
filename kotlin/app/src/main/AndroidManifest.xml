@@ -36,9 +36,6 @@
             android:name=".ui.home.HomeActivity"
             android:exported="false"/>
         <activity
-            android:name=".ui.worklog.WorkLogActivity"
-            android:exported="false"/>
-        <activity
             android:name=".ui.worklog.WorkLogListActivity"
             android:exported="false"/>
         <activity

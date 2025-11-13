@@ -1,7 +1,5 @@
 package com.project.dockin.data.dto
 
-class Safetypackage com.project.dockin.data.dto
-
 import com.squareup.moshi.Json
 
 data class SafetyCourseDto(
@@ -10,7 +8,7 @@ data class SafetyCourseDto(
     @Json(name = "description") val description: String?,
     @Json(name = "videoUrl") val videoUrl: String?,
     @Json(name = "durationMinutes") val durationMinutes: Int,
-    @Json(name = "isMandatory") val isMandatory: Boolean? = true,
+    @Json(name = "isMandatory") val isMandatory: Boolean = true,
     @Json(name = "createdAt") val createdAt: String?
 )
 
@@ -20,5 +18,4 @@ data class EnrollResultDto(
     @Json(name = "courseId") val courseId: Int,
     @Json(name = "isCompleted") val isCompleted: Boolean,
     @Json(name = "completedAt") val completedAt: String?
-) {
-}
+)

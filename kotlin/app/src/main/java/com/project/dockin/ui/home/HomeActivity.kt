@@ -3,6 +3,7 @@ package com.project.dockin.ui.home
 import android.content.Intent
 import com.project.dockin.ui.worklog.WorkLogActivity
 import com.project.dockin.ui.worklog.WorkLogListActivity
+import com.project.dockin.AppMode
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -46,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnWorklogList).setOnClickListener {
             startActivity(android.content.Intent(this, com.project.dockin.ui.worklog.WorkLogListActivity::class.java))
         }
+
     }
     override fun onDestroy() { super.onDestroy(); scope.cancel() }
 }
