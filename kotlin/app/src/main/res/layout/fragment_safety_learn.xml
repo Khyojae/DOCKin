@@ -2,38 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="24dp"
-    android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvGreeting"
-        android:text="오늘도 안전하게, 도크인"
+        android:id="@+id/tvSafetyTitle"
+        android:text="안전교육"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
-
-    <TextView
-        android:id="@+id/tvTodayState"
-        android:text="오늘 상태: -"
-        android:textSize="14sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/btnIn"
+        android:id="@+id/btnSafetyLearnList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="출근하기" />
+        android:text="내 미이수 영상 / 안전교육 목록" />
 
     <Button
-        android:id="@+id/btnOut"
+        android:id="@+id/btnSafetyAdmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="퇴근하기"
+        android:text="(관리자) 이수 현황 / 점검 목록"
         android:layout_marginTop="12dp" />
 
 </LinearLayout>

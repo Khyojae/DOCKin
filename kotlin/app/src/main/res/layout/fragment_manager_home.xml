@@ -5,48 +5,38 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="관리자 메뉴"
-            android:textSize="18sp"
+            android:id="@+id/tvManagerTitle"
+            android:text="관리자 대시보드"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp" />
 
-        <GridLayout
-            android:id="@+id/gridManagerMenu"
-            android:columnCount="3"
+        <Button
+            android:id="@+id/btnAttendanceSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:text="근태 현황 보기 (출근/퇴근/휴가/병결)" />
 
-            <!-- 근태관리, 긴급사항, 구역관리, 일일점검 등 타일 버튼들
-                 나중에 각각 Activity/Fragment 로 이동만 연결하면 됨 -->
-            <Button
-                android:id="@+id/btnAttendance"
-                android:text="근태관리"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"/>
+        <Button
+            android:id="@+id/btnSafetyDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안전점검 / 안전교육 관리"
+            android:layout_marginTop="12dp" />
 
-            <Button
-                android:id="@+id/btnEmergency"
-                android:text="긴급사항"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"/>
-
-            <Button
-                android:id="@+id/btnSafety"
-                android:text="안전점검"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"/>
-
-        </GridLayout>
+        <Button
+            android:id="@+id/btnEmergency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="긴급사항 대응 (공지 발송)"
+            android:layout_marginTop="12dp" />
 
     </LinearLayout>
 </ScrollView>

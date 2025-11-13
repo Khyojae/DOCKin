@@ -2,38 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="24dp"
-    android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvGreeting"
-        android:text="오늘도 안전하게, 도크인"
+        android:id="@+id/tvNavTitle"
+        android:text="AR 네비게이션 and 팝업 메모"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="16dp" />
 
     <TextView
-        android:id="@+id/tvTodayState"
-        android:text="오늘 상태: -"
+        android:id="@+id/tvNavDesc"
+        android:text="작업 위치까지 AR 네비게이션, 사물 인식 기반 팝업 메모를 지원합니다. (현재는 UI만 구현)"
         android:textSize="14sp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp" />
 
     <Button
-        android:id="@+id/btnIn"
+        android:id="@+id/btnArNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="출근하기" />
+        android:text="AR 네비게이션 시작" />
 
     <Button
-        android:id="@+id/btnOut"
+        android:id="@+id/btnArMemo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="퇴근하기"
+        android:text="AR 메모 모드"
         android:layout_marginTop="12dp" />
 
 </LinearLayout>

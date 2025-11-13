@@ -1,8 +1,31 @@
-package com.project.dockin.ui.main.fragment
+package com.project.dockin.ui.fragment
 
-// 작업일지 목록 (이미 있는 WorkLogListActivity 레이아웃 재사용해도 됨)
-class WorkLogFragment : Fragment() {
-    override fun onCreateView(i: LayoutInflater, c: ViewGroup?, b: Bundle?): View =
-        i.inflate(R.layout.activity_worklog_list, c, false)
-    // 나중에 ViewModel 붙이면 끝
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import androidx.fragment.app.Fragment
+import com.project.dockin.R
+import com.project.dockin.ui.worklog.WorkLogActivity
+import com.project.dockin.ui.worklog.WorkLogListActivity
+
+/**
+ * 작업일지 탭 - 작성/목록으로 이동 버튼만 제공
+ */
+class WorkLogFragment : Fragment(R.layout.fragment_worklog) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val btnWrite = view.findViewById<Button>(R.id.btnWorklogWrite)
+        val btnList  = view.findViewById<Button>(R.id.btnWorklogList)
+
+        btnWrite.setOnClickListener {
+            startActivity(Intent(requireContext(), WorkLogActivity::class.java))
+        }
+
+        btnList.setOnClickListener {
+            startActivity(Intent(requireContext(), WorkLogListActivity::class.java))
+        }
+    }
 }

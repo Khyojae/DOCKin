@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(
                             android.content.Intent(
                                 this@LoginActivity,
-                                com.project.dockin.ui.main.MainActivity::class.java
+                                com.project.dockin.MainActivity::class.java
                             )
                         )
                         finish()

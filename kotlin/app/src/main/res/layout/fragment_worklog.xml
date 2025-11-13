@@ -7,33 +7,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvGreeting"
-        android:text="오늘도 안전하게, 도크인"
+        android:id="@+id/tvWorklogTitle"
+        android:text="작업일지"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp" />
 
-    <TextView
-        android:id="@+id/tvTodayState"
-        android:text="오늘 상태: -"
-        android:textSize="14sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
-
     <Button
-        android:id="@+id/btnIn"
+        android:id="@+id/btnWorklogWrite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="출근하기" />
+        android:text="작업일지 작성하기" />
 
     <Button
-        android:id="@+id/btnOut"
+        android:id="@+id/btnWorklogList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="퇴근하기"
+        android:text="작업일지 목록 보기"
         android:layout_marginTop="12dp" />
 
 </LinearLayout>
