@@ -7,6 +7,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.project.dockin.R
 import com.project.dockin.data.api.*
+import com.project.dockin.data.api.Network
+import com.project.dockin.data.api.TokenStore
+import com.project.dockin.data.pref.SessionStore
+import com.project.dockin.data.pref.UserRole
+import com.project.dockin.util.JwtUtils
 import kotlinx.coroutines.*
 
 class LoginActivity : AppCompatActivity() {
@@ -23,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         val retrofit = Network.retrofit(this)
         val api = retrofit.create(AuthApi::class.java)
         val tokenStore = TokenStore(this)
+        val sessionStore = SessionStore(this)
 
         btn.setOnClickListener {
             val id = etId.text.toString()
@@ -31,8 +37,19 @@ class LoginActivity : AppCompatActivity() {
                 runCatching { api.login(LoginReq(id, pw)) }
                     .onSuccess {
                         tokenStore.jwt = it.token
+
+                        // JWT 에서 role / userId 뽑기
+                        val payload = JwtUtils.parse(it.token)
+                        sessionStore.userId = payload?.sub
+                        sessionStore.role   = UserRole.fromAuth(payload?.auth)
+
                         Toast.makeText(this@LoginActivity, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                        startActivity(android.content.Intent(this@LoginActivity, com.project.dockin.ui.home.HomeActivity::class.java))
+                        startActivity(
+                            android.content.Intent(
+                                this@LoginActivity,
+                                com.project.dockin.ui.main.MainActivity::class.java
+                            )
+                        )
                         finish()
                     }
                     .onFailure {

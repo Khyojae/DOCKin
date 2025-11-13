@@ -57,17 +57,17 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-    // WorkManager (이미 있으면 유지)
     implementation("androidx.work:work-runtime-ktx:2.9.1")
 
-    // Room (이미 있으면 버전만 맞추기)
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
-    // Moshi + Retrofit (버전은 사용 중인 것과 맞추세요)
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") //OkHTTP 로깅 인터셉터
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")     // 🔐 Jetpack Security Crypto (MasterKey, EncryptedSharedPreferences)
 }

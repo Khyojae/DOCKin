@@ -14,16 +14,17 @@ class SafetyRepository(
         val remote = api.listCourses()
         val locals = remote.map { r ->
             SafetyCourseLocal(
-                courseId        = r.courseId,                 // Int (nullable이면 ?: 0)
-                title           = r.title,                    // String
-                description     = r.description ?: "",        // String?
-                videoUrl        = r.videoUrl ?: "",           // String?
-                durationMinutes = r.durationMinutes ?: 0,     // Int?
-                isMandatory     = r.isMandatory ?: true,      // Boolean?
-                createdAt       = r.createdAt ?: ""           // 널 가드
+                courseId        = r.courseId,
+                title           = r.title,
+                description     = r.description ?: "",
+                videoUrl        = r.videoUrl ?: "",
+                durationMinutes = r.durationMinutes,
+                isMandatory     = r.isMandatory,
+                createdAt       = r.createdAt ?: ""
             )
         }
         db.safetyCourseDao().upsertAll(locals)
     }
+
     suspend fun enroll(courseId: Int) = api.enroll(courseId)
 }

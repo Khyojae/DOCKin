@@ -28,13 +28,15 @@
             </intent-filter>
         </activity>
 
-        <!-- 메인 액티비티는 런처 제거(필요 시 내부에서 이동) -->
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false"/>
+        <activity
+            android:name=".ui.worklog.WorkLogActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.worklog.WorkLogListActivity"
             android:exported="false"/>
