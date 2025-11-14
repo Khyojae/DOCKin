@@ -1,29 +1,18 @@
 package com.project.dockin.data.api
 
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface SafetyApi {
 
+    // 전체 교육 목록 조회: GET /api/safety/courses
     @GET("/api/safety/courses")
-    suspend fun getCourses(): List<SafetyCourseDto>
+    suspend fun listCourses(): List<SafetyCourseDto>
 
-    @GET("/api/safety/courses/{id}")
-    suspend fun getCourseDetail(@Path("id") id: Long): SafetyCourseDto
-
+    // 교육 이수 처리: POST /api/safety/enroll/{id}
     @POST("/api/safety/enroll/{id}")
-    suspend fun completeCourse(@Path("id") id: Long): EnrollResponse
-
-    data class SafetyCourseDto(
-        val courseId: Long,
-        val title: String,
-        val description: String?,
-        val videoUrl: String,
-        val durationMinutes: Int,
-        val mandatory: Boolean
-    )
-
-    data class EnrollResponse(
-        val success: Boolean,
-        val message: String?
-    )
+    suspend fun enroll(
+        @Path("id") courseId: Int
+    ): EnrollResponse
 }
