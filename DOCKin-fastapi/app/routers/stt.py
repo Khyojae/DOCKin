@@ -7,7 +7,9 @@ router = APIRouter(tags=["stt"])
 
 
 @router.post(
-    "/v1/stt", response_model=SttResponse, dependencies=[Depends(require_service_token)]
+    "/api/worklogs/stt",
+    response_model=SttResponse,
+    dependencies=[Depends(require_service_token)],
 )
 async def stt(request: Request, file: UploadFile | None = File(None)):
     # Content-Type 분기 표현

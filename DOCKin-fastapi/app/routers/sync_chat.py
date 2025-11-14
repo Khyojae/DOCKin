@@ -8,7 +8,7 @@ router = APIRouter(tags=["chat"])
 
 
 @router.post(
-    "/v1/chat",
+    "/api/chat",
     response_model=ChatResponse,
     dependencies=[Depends(require_service_token)],
 )

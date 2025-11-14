@@ -8,7 +8,7 @@ router = APIRouter(tags=["jobs"])
 
 
 @router.post(
-    "/v1/ai/jobs",
+    "/api/ai/jobs",
     response_model=JobAccepted,
     dependencies=[Depends(require_service_token)],
 )

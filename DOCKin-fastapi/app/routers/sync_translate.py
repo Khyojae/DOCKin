@@ -8,7 +8,7 @@ router = APIRouter(tags=["translate"])
 
 
 @router.post(
-    "/v1/translate",
+    "/api/translate",
     response_model=TranslateResponse,
     dependencies=[Depends(require_service_token)],
 )
