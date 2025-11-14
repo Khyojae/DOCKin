@@ -7,8 +7,8 @@ INSERT INTO users (user_id, name, password, role, ship_yard_area, language_code,
 ('1005', 'Kenji Tanaka', '{noop}5678', 'ROLE_USER', '제9조선소', 'ja', TRUE),
 ('1006', 'Maria Garcia', '{noop}5678', 'ROLE_USER', '제5조선소', 'es', FALSE),
 ('1007', 'Alex Schmidt', '{noop}5678', 'ROLE_ADMIN', '제8조선소', 'de', TRUE),
-('1008', 'Li Wei', '{noop}5678', 'ROLE_USER', '제5조선소', 'zh', FALSE);
-
+('1008', 'Li Wei', '{noop}5678', 'ROLE_USER', '제5조선소', 'zh', FALSE),
+('user2', '테스트2', '{noop}password2', 'ROLE_USER', '제8조선소', 'ko', TRUE); -- 💡 채팅 테스트 상대방 계정 추가
 
 -- EQUIPMENT 테이블 INSERT (변동 없음)
 INSERT INTO EQUIPMENT (equipment_id, name, qr_code) VALUES
@@ -62,7 +62,7 @@ INSERT INTO work_logs (user_id, title, log_text, equipment_id, created_at, updat
 ('1005', '9エリア溶接点検レポート', '溶接機(ID:2)の定期点検を実施。トーチ交換済み。', 2, NOW(), NOW()), -- Japanese
 ('1006', 'Reporte de Inspección de Seguridad', 'Revisión completa de equipos de elevación. Grúa (ID:3) sin anomalías.', 3, NOW(), NOW()), -- Spanish
 ('1007', 'Pumpenwartung Protokoll', 'Routine-Wartung an der Testpumpe (ID:1) abgeschlossen. Filter gereinigt.', 1, NOW(), NOW()), -- German
-('1008', '5区油漆喷涂准备', '自动喷枪(ID:4)的压力测试完成。油漆A-30库存充足。', 4, NOW(), NOW()), -- Chinese
+('1008', '5区油漆喷涂准备', '自动喷枪(ID:4)の压力测试完成。油漆A-30库存充足。', 4, NOW(), NOW()), -- Chinese
 ('1005', 'Cutting Equipment Calibration', 'Checked pipe cutting machine (ID:5) laser alignment. Ready for production.', 5, NOW(), NOW()), -- English (Using Japanese user_id)
 ('1006', 'Prueba del Generador Móvil', 'El generador (ID:6) funcionó por 1 hora. Nivel de combustible revisado.', 6, NOW(), NOW()), -- Spanish
 ('1007', 'Schweißen und Schneiden Bericht', 'Sauerstoff-Acetylen-Schneidbrenner (ID:7) für Notfallarbeiten bereit.', 7, NOW(), NOW()), -- German

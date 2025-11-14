@@ -43,23 +43,27 @@ public class ChatRoomService {
      */
     @Transactional
     public ChatRoom createOrGetOneToOneRoom(String userAId, String userBId) {
-        // 1. 두 사용자가 이미 참여하고 있는 1:1 방이 있는지 검색 (복잡한 쿼리 필요, 현재는 단순화)
-        // *임시 검색 로직: 두 사용자가 참여하는 1:1 방을 찾았다고 가정하고
-        List<ChatMember> roomsForA = chatMemberRepository.findByUserId(userAId);
-        for (ChatMember memberA : roomsForA) {
-            // 해당 방이 1:1 방인지 확인하는 로직 추가 필요 (현재는 생략)
-            if (chatMemberRepository.existsByRoomIdAndUserId(memberA.getRoomId(), userBId)) {
-                // 두 사용자가 모두 참여하는 방을 찾음
-                return chatRoomRepository.findById(memberA.getRoomId()).orElse(null);
-            }
+        // userA와 userB가 동일한 경우, 방을 생성하지 않습니다.
+        if (userAId.equals(userBId)) {
+            throw new IllegalArgumentException("1:1 채팅방은 동일한 사용자 ID로 생성할 수 없습니다.");
+        }
+
+        // 1. 두 사용자가 이미 참여하고 있는 1:1 방이 있는지 검색 (개선된 로직)
+        List<Integer> existingRoomIds = chatMemberRepository.findOneToOneRoomIdsByUserIds(userAId, userBId);
+
+        if (!existingRoomIds.isEmpty()) {
+            // 가장 먼저 찾은 방 ID로 ChatRoom을 조회하여 반환합니다.
+            // 1:1 방은 하나만 존재한다고 가정합니다.
+            return chatRoomRepository.findById(existingRoomIds.get(0)).orElse(null);
         }
 
         // 2. 새로운 1:1 채팅방 생성
         ChatRoom newRoom = new ChatRoom();
         newRoom.setIsGroup(false);
-        newRoom.setRoomName(userAId + "_" + userBId);
+        // 방 이름은 사용자 ID를 사전 순으로 정렬하여 일관성 있게 만듭니다.
+        String roomName = (userAId.compareTo(userBId) < 0) ? (userAId + "_" + userBId) : (userBId + "_" + userAId);
+        newRoom.setRoomName(roomName);
 
-        // 💡 오류 해결: chatRoomRepository.save 결과를 savedRoom 변수에 할당합니다.
         ChatRoom savedRoom = chatRoomRepository.save(newRoom);
 
         // 3. 두 사용자를 방에 추가

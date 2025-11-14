@@ -26,7 +26,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // WebSocket 연결을 위한 엔드포인트 설정
         // 클라이언트는 ws://localhost:8081/ws/chat 으로 연결
         registry.addEndpoint("/ws/chat")
-                .setAllowedOriginPatterns("*") // 모든 출처 허용 (배포 시 보안 강화 필요)
-                .withSockJS(); // SockJS 지원 (웹소켓을 지원하지 않는 브라우저를 위해)
+                .setAllowedOriginPatterns("*"); // 모든 출처 허용 (배포 시 보안 강화 필요)
+
     }
 }

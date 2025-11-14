@@ -15,11 +15,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
-
+import java.time.Instant;
+import java.time.ZoneId;
 @Component
 @Slf4j
 public class JwtTokenProvider {
@@ -45,6 +47,13 @@ public class JwtTokenProvider {
 
         long now = (new Date()).getTime();
         Date validity = new Date(now+this.tokenValidityInMilliseconds);
+
+        log.info("--- Token Creation Debug ---");
+        log.info("1. Current Time (UTC): {}", Instant.ofEpochMilli(now).atZone(ZoneId.of("UTC")));
+        log.info("2. Validity (ms): {}", this.tokenValidityInMilliseconds);
+        log.info("3. Expiration Time (UTC): {}", Instant.ofEpochMilli(validity.getTime()).atZone(ZoneId.of("UTC")));
+        log.info("----------------------------");
+
 
         return Jwts.builder()
                 .setSubject(authentication.getName())

@@ -55,9 +55,16 @@ public class SecurityConfiguration {
                 // 인가(Authorization) 설정 시작
                 .authorizeHttpRequests(authorize -> authorize
 
+                        // ⭐ [추가] WebSocket 연결 엔드포인트는 인증 없이 허용 (핸드셰이크)
+                        .requestMatchers("/ws/chat/**").permitAll()
+
                         // 1. 인증이 필요 없는 공통 API (로그인, 회원가입)
                         .requestMatchers("/", "/signup", "/login", "/api/auth/**").permitAll()
                         .requestMatchers("/api/notifications/**").hasAnyRole("USER", "ADMIN")
+
+                        // 💡 [추가] 채팅방 생성/조회 API 경로 허용 (USER, ADMIN 모두)
+                        //    경로가 /api/chat/room/** 또는 /api/chat/** 이라고 가정합니다.
+                        .requestMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN")
 
                         // 2. 근로자/관리자 모두 접근 (조회 및 이수 처리)
                         .requestMatchers("/api/safety/courses/**").hasAnyRole("USER", "ADMIN")

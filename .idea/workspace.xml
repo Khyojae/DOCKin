@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecb3a057-5579-4454-8c65-be901a801d8a" name="Changes" comment="" />
+    <list default="true" id="ecb3a057-5579-4454-8c65-be901a801d8a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/jwt/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/jwt/JwtTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/ChatMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/ChatMemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/ChatRoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/data.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +46,28 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Khyojae&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Khyojae/DOCKin.git&quot;,
+    &quot;accountId&quot;: &quot;aeaa7035-149c-4d46-b3a0-a53fd88434d6&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -53,6 +86,8 @@
     "Gradle.springboot [:com.example.DOCKin.DocKinApplication.main()].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/khjae/Downloads/DOCKin-springboot"
   }
 }]]></component>
