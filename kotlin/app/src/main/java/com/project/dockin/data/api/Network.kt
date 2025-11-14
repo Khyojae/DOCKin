@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.project.dockin.BuildConfig
+
 object Network {
     fun retrofit(ctx: Context): Retrofit {
         val logging = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -24,4 +25,5 @@ object Network {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
+
 }
