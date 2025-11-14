@@ -83,7 +83,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <EditText
-                    android:id="@+id/edtContent"
+                    android:id="@+id/etContent"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:hint="작업 내용을 입력하세요 (STT 버튼으로 음성 입력도 가능)"
@@ -167,13 +167,13 @@
                     android:layout_marginTop="16dp">
 
                     <Spinner
-                        android:id="@+id/spSrcLang"
+                        android:id="@+id/spSourceLang"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                     <Spinner
-                        android:id="@+id/spTgtLang"
+                        android:id="@+id/spTargetLang"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -198,7 +198,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <EditText
-                    android:id="@+id/edtTranslated"
+                    android:id="@+id/etTranslated"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:gravity="top"
