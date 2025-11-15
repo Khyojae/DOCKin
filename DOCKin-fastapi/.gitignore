@@ -1,0 +1,57 @@
+# -----------------------------
+# Python / FastAPI 공통
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# 가상환경
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# IDE / 에디터
+.vscode/
+.idea/
+*.iml
+
+# OS 잡파일
+.DS_Store
+Thumbs.db
+
+# 테스트 / 커버리지
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.cache/
+
+# 로그 / 임시 파일
+*.log
+*.tmp
+*.swp
+*.swo
+
+# 환경변수 / 시크릿
+.env
+.env.*
+*.secret
+*.pem
+*.key
+
+# Uvicorn / Gunicorn 등 런타임 생성 파일이 있다면 여기에 추가
+# 예: run/
+run/
+logs/
+
+# Alembic (쓰면) 캐시
+alembic.ini
+versions/__pycache__/
