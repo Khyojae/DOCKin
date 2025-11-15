@@ -8,7 +8,7 @@ import retrofit2.http.Part
 
 interface AiApi {
 
-    // 1) STT: /api/worklogs/stt
+    // STT
     data class SttResponse(
         val text: String,
         val provider: String?
@@ -20,7 +20,7 @@ interface AiApi {
         @Part file: MultipartBody.Part
     ): SttResponse
 
-    // 2) 번역: /api/translate
+    // 번역
     data class TranslateRequest(
         val text: String,
         val source: String,
@@ -36,10 +36,10 @@ interface AiApi {
 
     @POST("/api/translate")
     suspend fun translate(
-        @Body req: TranslateRequest
+        @Body body: TranslateRequest
     ): TranslateResponse
 
-    // 3) 챗봇: /api/chat
+    // 챗봇
     data class ChatMessage(
         val role: String,   // "user" / "assistant"
         val content: String
@@ -55,17 +55,12 @@ interface AiApi {
     data class ChatResponse(
         val reply: String,
         val model: String?,
-        val usage: Usage?,
+        val usage: Map<String, Any>?,
         val traceId: String?
-    ) {
-        data class Usage(
-            val input: Int?,
-            val output: Int?
-        )
-    }
+    )
 
     @POST("/api/chat")
     suspend fun chat(
-        @Body req: ChatRequest
+        @Body body: ChatRequest
     ): ChatResponse
 }

@@ -25,10 +25,18 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
 
         repo = ChatRepository(requireContext())
         adapter = com.project.dockin.ui.chat.ChatRoomListAdapter { room ->
-            val intent = Intent(requireContext(), ChatRoomActivity::class.java).apply {
-                putExtra(ChatRoomActivity.EXTRA_ROOM_ID, room.id)
+            // ★ 여기 분기 추가
+            if (room.id == com.project.dockin.ui.chat.ChatRoomActivity.CHATBOT_ROOM_ID) {
+                // 챗봇 방 → BotChatActivity 사용
+                val intent = Intent(requireContext(), com.project.dockin.ui.chat.BotChatActivity::class.java)
+                startActivity(intent)
+            } else {
+                // 일반 방 → 기존 ChatRoomActivity
+                val intent = Intent(requireContext(), com.project.dockin.ui.chat.ChatRoomActivity::class.java).apply {
+                    putExtra(ChatRoomActivity.EXTRA_ROOM_ID, room.id)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
 
         val rv = view.findViewById<RecyclerView>(R.id.rvChatList)

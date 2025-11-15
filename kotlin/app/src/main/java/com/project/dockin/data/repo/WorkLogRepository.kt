@@ -1,22 +1,39 @@
+// WorkLogRepository.kt
 package com.project.dockin.data.repo
 
-import com.project.dockin.data.api.CreateWorkLogReq
-import com.project.dockin.data.api.UpdateWorkLogReq
-import com.project.dockin.data.api.WorkLogApi
-import com.project.dockin.data.api.WorkLogDto
+import android.util.Log
+import com.project.dockin.data.api.*
 
 class WorkLogRepository(
     private val api: WorkLogApi
 ) {
+    companion object {
+        private const val TAG = "WorkLogRepo"
+    }
 
-    suspend fun fetch(): List<WorkLogDto> = api.list()
+    // 같은 구역 목록
+    suspend fun fetch(): List<WorkLogDto> {
+        return try {
+            val res = api.list()
+            Log.d(TAG, "fetch() success, size = ${res.size}")
+            res
+        } catch (e: Exception) {
+            Log.e(TAG, "fetch() failed", e)
+            emptyList()
+        }
+    }
+
+    suspend fun getOne(logId: Long): WorkLogDto =
+        api.getOne(logId)
 
     suspend fun create(req: CreateWorkLogReq): WorkLogDto =
         api.create(req)
 
-    suspend fun update(id: Int, req: UpdateWorkLogReq): WorkLogDto =
+    suspend fun update(id: Long, req: UpdateWorkLogReq): WorkLogDto =
         api.update(id, req)
 
-    suspend fun delete(id: Int) =
+    suspend fun delete(id: Long) {
         api.delete(id)
+        Log.d(TAG, "delete($id) called")
+    }
 }

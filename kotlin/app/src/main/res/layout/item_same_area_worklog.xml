@@ -1,0 +1,22 @@
+<!-- res/layout/item_same_area_worklog.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvSameAreaItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvSameAreaItemPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:maxLines="2"
+        android:ellipsize="end" />
+</LinearLayout>

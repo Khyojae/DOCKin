@@ -1,6 +1,7 @@
 package com.project.dockin.ui.worklog
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,12 @@ import com.project.dockin.data.api.Network
 import com.project.dockin.data.repo.WorkLogRepository
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.project.dockin.ui.common.BaseActivity
 
 class WorkLogListActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "WorkLogListActivity"
+    }
 
     private val viewModel: WorkLogViewModel by viewModels {
         val retrofit = Network.retrofit(this@WorkLogListActivity)
@@ -40,17 +44,20 @@ class WorkLogListActivity : AppCompatActivity() {
         // 목록 관찰
         lifecycleScope.launch {
             viewModel.items.collectLatest { list ->
+                Log.d(TAG, "collectLatest: size=${list.size}")
                 adapter.submitList(list)
             }
         }
 
         // 당겨서 새로고침
         swipe.setOnRefreshListener {
+            Log.d(TAG, "swipe refresh")
             viewModel.refresh()
             swipe.isRefreshing = false
         }
 
         // 최초 로드
+        Log.d(TAG, "onCreate -> refresh()")
         viewModel.refresh()
 
         adapter.onItemClick = { item ->
