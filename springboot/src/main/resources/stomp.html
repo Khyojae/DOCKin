@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spring Boot STOMP Chat Test</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .log-box { border: 1px solid #ccc; height: 200px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; background-color: #f9f9f9; }
+        input[type="text"], button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+        button { cursor: pointer; background-color: #4CAF50; color: white; border: none; }
+        button:hover { opacity: 0.9; }
+        .status { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>STOMP WebSocket 테스트 클라이언트</h2>
+
+    <label for="jwtToken">JWT 토큰:</label>
+    <input type="text" id="jwtToken" placeholder="여기에 새로 발급받은 Bearer 토큰 값을 입력하세요">
+
+    <label for="roomId">채팅방 ID:</label>
+    <input type="text" id="roomId" value="1" placeholder="구독할 채팅방 ID">
+
+    <button onclick="connectAndSubscribe()">연결 및 구독 시작</button>
+
+    <div class="status">상태: <span id="statusText" style="color: red;">연결 끊김</span></div>
+
+    <hr>
+
+    <h3>메시지 전송</h3>
+    <input type="text" id="messageInput" placeholder="보낼 메시지 입력">
+    <button onclick="sendMessage()">메시지 전송 (TALK)</button>
+
+    <hr>
+
+    <h3>수신/로그</h3>
+    <div id="log" class="log-box"></div>
+</div>
+
+<script>
+    const SOCKET_URL = 'ws://localhost:8081/ws/chat';
+    const APP_DESTINATION = '/app/chat/message';
+    const TOPIC_DESTINATION = '/topic/chatroom/';
+
+    let stompClient = null;
+
+    function logMessage(message, color = 'black') {
+        const log = document.getElementById('log');
+        const now = new Date().toLocaleTimeString();
+        log.innerHTML += `<div style="color: ${color};">[${now}] ${message}</div>`;
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function updateStatus(text, color) {
+        document.getElementById('statusText').textContent = text;
+        document.getElementById('statusText').style.color = color;
+    }
+
+    function connectAndSubscribe() {
+        if (stompClient && stompClient.connected) {
+            logMessage('이미 연결되어 있습니다.', 'orange');
+            return;
+        }
+
+        const token = document.getElementById('jwtToken').value.trim();
+        const roomId = document.getElementById('roomId').value.trim();
+
+        if (!token) {
+            logMessage('JWT 토큰을 입력하세요.', 'red');
+            return;
+        }
+
+        logMessage('WebSocket 연결 시도...', 'blue');
+
+        // 1. Stomp.js 클라이언트 설정
+        stompClient = new StompJs.Client({
+            brokerURL: SOCKET_URL,
+
+            // 2. JWT 토큰을 CONNECT 프레임 헤더에 추가
+            connectHeaders: {
+                'Authorization': `Bearer ${token}`
+            },
+
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+        });
+
+        // 연결 성공 핸들러
+        stompClient.onConnect = (frame) => {
+            updateStatus('연결됨', 'green');
+            logMessage(`STOMP 연결 성공: ${frame}`, 'green');
+
+            // 3. 채팅방 구독
+            stompClient.subscribe(TOPIC_DESTINATION + roomId, (message) => {
+                logMessage(`[수신] ${message.body}`, 'purple');
+            });
+            logMessage(`토픽 구독 완료: ${TOPIC_DESTINATION}${roomId}`, 'blue');
+
+            // 4. 입장 메시지 발행 (선택 사항)
+            sendEnterMessage(roomId, '1001'); // 💡 'testUser' -> '1001'로 수정
+        };
+
+        // 연결 끊김/오류 핸들러
+        stompClient.onWebSocketError = (error) => {
+            logMessage(`WebSocket 에러: ${error}`, 'red');
+        };
+
+        stompClient.onStompError = (frame) => {
+            updateStatus('STOMP 오류 발생', 'red');
+            logMessage(`STOMP 오류: ${frame.headers['message']}`, 'red');
+            logMessage(`상세 내용: ${frame.body}`, 'red');
+        };
+
+        stompClient.onDisconnect = () => {
+            updateStatus('연결 끊김', 'red');
+            logMessage('연결이 끊어졌습니다.', 'red');
+        };
+
+        stompClient.activate(); // 연결 활성화
+    }
+
+    function sendMessage() {
+        if (!stompClient || !stompClient.connected) {
+            logMessage('먼저 연결하세요.', 'red');
+            return;
+        }
+
+        const content = document.getElementById('messageInput').value;
+        const roomId = document.getElementById('roomId').value;
+
+        const chatMessage = {
+            roomId: parseInt(roomId),
+            senderId: '1001', // 💡 'testUser' -> '1001'로 수정
+            content: content,
+            type: 'TALK'
+        };
+
+        stompClient.publish({
+            destination: APP_DESTINATION,
+            body: JSON.stringify(chatMessage),
+            headers: { 'content-type': 'application/json' }
+        });
+        logMessage(`[발행] ${content}`, 'gray');
+        document.getElementById('messageInput').value = ''; // 입력창 초기화
+    }
+
+    function sendEnterMessage(roomId, senderId) {
+        const enterMessage = {
+            roomId: parseInt(roomId),
+            senderId: senderId,
+            type: 'ENTER'
+        };
+
+        stompClient.publish({
+            destination: APP_DESTINATION,
+            body: JSON.stringify(enterMessage),
+            headers: { 'content-type': 'application/json' }
+        });
+        logMessage(`[발행] 입장 메시지`, 'gray');
+    }
+</script>
+
+</body>
+</html>
