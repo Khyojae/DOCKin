@@ -41,7 +41,7 @@ DOCKin은 조선소 근로자를 위한 AR 기반 작업 안내, AI 음성 인�
 | AR | Unity, ARCore |
 | AI | Whisper, NLLB, YOLOv11, OpenAI |
 | Backend | Spring Boot, FastAPI |
-| Infra | MySQL, Firebase |
+| Infra | MySQL |
 | Offline | WorkManager, JobScheduler, Sync API |
 
 ---
