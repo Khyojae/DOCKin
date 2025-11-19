@@ -1,52 +1,43 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.translate import TranslateRequest, TranslateResponse
-from transformers import MarianMTModel, MarianTokenizer
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 router = APIRouter()
 
-# 지원 언어쌍별 MarianMT 모델 매핑.
-MODEL_NAME_MAP: dict[tuple[str, str], str] = {
-    ("ko", "en"): "Helsinki-NLP/opus-mt-ko-en",
-    ("en", "ko"): "Helsinki-NLP/opus-mt-en-ko",
-    ("en", "vi"): "Helsinki-NLP/opus-mt-en-vi",
-    ("vi", "en"): "Helsinki-NLP/opus-mt-vi-en",
-    ("en", "zh"): "Helsinki-NLP/opus-mt-en-zh",
-    ("zh", "en"): "Helsinki-NLP/opus-mt-zh-en",
-    ("en", "th"): "Helsinki-NLP/opus-mt-en-th",
-    ("th", "en"): "Helsinki-NLP/opus-mt-th-en",
+# NLLB 경량 모델 이름 정의.
+MODEL_NAME = "facebook/nllb-200-distilled-600M"
+
+# 토크나이저와 모델을 서버 시작 시 한 번만 로드.
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
+
+# 외부에서 들어오는 언어 코드와 NLLB 내부 언어 코드를 매핑.
+LANG_CODE_MAP: dict[str, str] = {
+    "ko": "kor_Hang",
+    "en": "eng_Latn",
+    "vi": "vie_Latn",
+    "zh": "zho_Hans",
+    "th": "tha_Thai",
 }
-
-# 로드된 모델과 토크나이저 캐시.
-model_cache: dict[str, MarianMTModel] = {}
-tokenizer_cache: dict[str, MarianTokenizer] = {}
-
-
-def get_model_and_tokenizer(
-    src: str, tgt: str
-) -> tuple[MarianMTModel, MarianTokenizer, str]:
-    # 언어쌍에 맞는 모델 이름 조회.
-    key = (src, tgt)
-    if key not in MODEL_NAME_MAP:
-        raise HTTPException(
-            status_code=400,
-            detail=f"지원하지 않는 번역 언어쌍입니다. source={src}, target={tgt}",
-        )
-    model_name = MODEL_NAME_MAP[key]
-
-    # 캐시에 없으면 로드.
-    if model_name not in model_cache:
-        tokenizer_cache[model_name] = MarianTokenizer.from_pretrained(model_name)
-        model_cache[model_name] = MarianMTModel.from_pretrained(model_name)
-
-    return model_cache[model_name], tokenizer_cache[model_name], model_name
 
 
 @router.post("/api/translate", response_model=TranslateResponse)
 async def translate(req: TranslateRequest):
-    # 모델과 토크나이저 로드.
-    model, tokenizer, model_name = get_model_and_tokenizer(req.source, req.target)
+    # 지원하지 않는 언어 코드가 들어오면 400 에러 반환.
+    if req.source not in LANG_CODE_MAP or req.target not in LANG_CODE_MAP:
+        raise HTTPException(
+            status_code=400,
+            detail=f"지원하지 않는 번역 언어 코드. source={req.source}, target={req.target}",
+        )
 
-    # 입력 토크나이징.
+    # NLLB 언어 코드 설정.
+    src_lang = LANG_CODE_MAP[req.source]
+    tgt_lang = LANG_CODE_MAP[req.target]
+
+    # 토크나이저에 소스 언어 설정.
+    tokenizer.src_lang = src_lang
+
+    # 입력 문장을 토크나이징.
     inputs = tokenizer(
         req.text,
         return_tensors="pt",
@@ -55,19 +46,21 @@ async def translate(req: TranslateRequest):
         max_length=256,
     )
 
-    # 번역 토큰 생성.
+    # NLLB 모델로 번역 토큰 생성.
     generated = model.generate(
         **inputs,
         max_length=256,
         num_beams=4,
         early_stopping=True,
+        forced_bos_token_id=tokenizer.lang_code_to_id[tgt_lang],
     )
 
-    # 텍스트 디코딩.
+    # 토큰을 실제 번역 텍스트로 디코딩.
     translated = tokenizer.batch_decode(generated, skip_special_tokens=True)[0]
 
+    # 공통 응답 스키마에 맞춰 반환.
     return TranslateResponse(
         translated=translated,
-        model=model_name,
+        model=MODEL_NAME,
         traceId=req.traceId,
     )
