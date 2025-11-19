@@ -24,7 +24,7 @@ async def stt(file: UploadFile = File(None), mediaUrl: str | None = None):
 
     # 2) URL 기반 (스프링 → fastapi URL전달)
     if mediaUrl:
-        # 필요하면 httpx로 다운로드 구현해줄게
+        # 필요하면 httpx로 다운로드 구현
         return SttResponse(text="[미구현] URL 기반 STT 필요시 추가", provider="whisper")
 
     return SttResponse(text="", provider="whisper")
