@@ -1,0 +1,13 @@
+train: /Users/emfpdlzj/Desktop/DOCKin-yolo/DOCKin-yolo/train/images
+val: /Users/emfpdlzj/Desktop/DOCKin-yolo/DOCKin-yolo/valid/images
+test: /Users/emfpdlzj/Desktop/DOCKin-yolo/DOCKin-yolo/test/images
+
+nc: 2
+names: ['box', 'forklift']
+
+roboflow:
+  workspace: meisy
+  project: factory-vdg3q
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/meisy/factory-vdg3q/dataset/1
