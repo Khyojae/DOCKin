@@ -1,1 +1,0 @@
-# Empty since FramePacing is disabled
