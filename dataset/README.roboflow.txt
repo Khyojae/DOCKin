@@ -2,7 +2,7 @@
 Factory - v1 2022-07-07 12:49pm
 ==============================
 
-This dataset was exported via roboflow.com on February 28, 2025 at 3:51 AM GMT
+This dataset was exported via roboflow.com on February 2, 2023 at 1:01 PM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -18,7 +18,7 @@ visit https://github.com/roboflow/notebooks
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
 The dataset includes 51 images.
-Forklift are annotated in YOLOv11 format.
+Forklift are annotated in YOLOv8 format.
 
 The following pre-processing was applied to each image:
 * Auto-orientation of pixel data (with EXIF-orientation stripping)
