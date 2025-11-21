@@ -1,0 +1,45 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+
+# Asset Store / Addressables Cache
+Assets/StreamingAssets/aa/*
+Assets/AssetStoreTools*
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 기타
+*.log
+*.orig
+*.bak
+*.tmp
+*.swp
+
+# Unity generated
+Library/
+Logs/
+Temp/
+Obj/
+Build/
+Builds/
+UserSettings/
+MemoryCaptures/
+Artifacts/
+Packages/com.unity.collab-proxy*/
