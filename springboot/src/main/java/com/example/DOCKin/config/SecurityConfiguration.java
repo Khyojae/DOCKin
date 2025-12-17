@@ -55,14 +55,14 @@ public class SecurityConfiguration {
                 // 인가(Authorization) 설정 시작
                 .authorizeHttpRequests(authorize -> authorize
 
-                        // ⭐ [추가] WebSocket 연결 엔드포인트는 인증 없이 허용 (핸드셰이크)
+                        // [추가] WebSocket 연결 엔드포인트는 인증 없이 허용 (핸드셰이크)
                         .requestMatchers("/ws/chat/**").permitAll()
 
                         // 1. 인증이 필요 없는 공통 API (로그인, 회원가입)
                         .requestMatchers("/", "/signup", "/login", "/api/auth/**").permitAll()
                         .requestMatchers("/api/notifications/**").hasAnyRole("USER", "ADMIN")
 
-                        // 💡 [추가] 채팅방 생성/조회 API 경로 허용 (USER, ADMIN 모두)
+                        // [추가] 채팅방 생성/조회 API 경로 허용 (USER, ADMIN 모두)
                         //    경로가 /api/chat/room/** 또는 /api/chat/** 이라고 가정합니다.
                         .requestMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN")
 
@@ -70,7 +70,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/safety/courses/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/safety/enroll/**").hasAnyRole("USER", "ADMIN")
 
-                        // ⭐ 누락된 근로 동의서 관련 경로 추가 (USER, ADMIN 모두 허용)
+                        // 누락된 근로 동의서 관련 경로 추가 (USER, ADMIN 모두 허용)
                         .requestMatchers("/api/safety/agreement/**").hasAnyRole("USER", "ADMIN")
 
                         // 3. 관리자 전용 (CRUD 및 현황 조회)
@@ -94,7 +94,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // ⭐ 필요에 따라 설정 변경 (예: 프론트엔드 URL, 허용 메서드 등)
+        // 필요에 따라 설정 변경 (예: 프론트엔드 URL, 허용 메서드 등)
         configuration.addAllowedOriginPattern("*"); // 모든 출처 허용 (보안에 주의하여 특정 출처로 제한 권장)
         configuration.addAllowedMethod("*"); // 모든 HTTP 메서드 (GET, POST, PUT, DELETE 등) 허용
         configuration.addAllowedHeader("*"); // 모든 헤더 허용 (Authorization 등)
