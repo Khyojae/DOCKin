@@ -51,7 +51,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
           # ./springboot[DOCKin] 폴더 안으로 들어가서 Dockerfile을 실행하도록 경로 지정
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./springboot[DOCKin]
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./DOCKin
 
       # 7. ECS 서비스 업데이트 (배포 실행)
       - name: Deploy Amazon ECS task definition
