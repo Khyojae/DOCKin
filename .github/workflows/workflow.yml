@@ -23,12 +23,13 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      # 3. Gradle 빌드 (실제 폴더명 springboot[DOCKin] 반영)
+      # 3. Gradle 빌드
       - name: Build with Gradle
         run: |
-          cd "springboot[DOCKin]"
+          cd "springboot"
           chmod +x gradlew
-          ./gradlew build -x test
+          # -x test를 넣어 테스트를 무시하고 jar 파일만 만듭니다.
+          ./gradlew clean build -x test
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -49,7 +50,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
           # 빌드 경로를 실제 폴더명으로 수정하여 Dockerfile을 찾게 함
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG "./springboot[DOCKin]"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG "./springboot"
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
