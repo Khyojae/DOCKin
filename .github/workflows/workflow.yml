@@ -40,19 +40,19 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-
-      # 6. Docker 이미지 빌드 및 ECR 푸시 (들여쓰기 교정 완료)
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        run: |
-          # 빌드 경로를 실제 폴더명으로 수정하여 Dockerfile을 찾게 함
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG "./springboot"
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          
+          # 6. Docker 이미지 빌드 및 ECR 푸시
+                - name: Build, tag, and push image to Amazon ECR
+                id: build-image
+                env:
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  IMAGE_TAG: ${{ github.sha }}
+                  # 시크릿 대신 이름을 직접 적어줍니다 (테스트용)
+                  ECR_REPOSITORY: dockin-hackathon
+                run: |
+                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./springboot
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                  echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       # 7. ECS 서비스 업데이트 (최상단 task-definition.json 파일 사용)
       - name: Deploy Amazon ECS task definition
