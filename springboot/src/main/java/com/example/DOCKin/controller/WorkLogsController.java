@@ -31,18 +31,6 @@ public class WorkLogsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newLog);
     }
 
-    @PostMapping("/stt")
-    // 타입 통일
-    public ResponseEntity<Work_logsDto> processSttAndCreateLog(
-            @AuthenticationPrincipal MemberUserDetails userDetails, // ⭐ 수정됨
-            @RequestPart("file") MultipartFile file,
-            @RequestPart("metadata") WorkLogsCreateRequestDto metadata){
-
-        String userId = userDetails.getUsername(); // ID 추출
-        Work_logsDto newLog = workLogsService.processSttAndSave(userId,file,metadata);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newLog);
-    }
-
 
     @GetMapping
     // 타입 통일

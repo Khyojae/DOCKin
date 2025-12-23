@@ -37,6 +37,8 @@ public class SecurityConfiguration {
         return provider;
     }
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
@@ -55,6 +57,12 @@ public class SecurityConfiguration {
                 // 인가(Authorization) 설정 시작
                 .authorizeHttpRequests(authorize -> authorize
 
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
                         // [추가] WebSocket 연결 엔드포인트는 인증 없이 허용 (핸드셰이크)
                         .requestMatchers("/ws/chat/**").permitAll()
 
@@ -70,9 +78,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/safety/courses/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/safety/enroll/**").hasAnyRole("USER", "ADMIN")
 
-                        // 누락된 근로 동의서 관련 경로 추가 (USER, ADMIN 모두 허용)
-                        .requestMatchers("/api/safety/agreement/**").hasAnyRole("USER", "ADMIN")
-
                         // 3. 관리자 전용 (CRUD 및 현황 조회)
                         .requestMatchers("/api/safety/admin/**").hasRole("ADMIN")
                         .requestMatchers("/member/**", "/admin/**").hasRole("ADMIN")
@@ -87,8 +92,14 @@ public class SecurityConfiguration {
                         new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class
                 );
+
+
+
         return http.build();
     }
+
+
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

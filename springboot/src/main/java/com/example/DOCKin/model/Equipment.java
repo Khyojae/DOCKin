@@ -19,10 +19,7 @@ public class Equipment {
     private Long equipment_id; // PK
 
     private String name;
-
-    // 나머지 필드는 필요에 따라 추가
     private String qr_code;
     private String nfc_tag;
 
-    // ...
 }

@@ -13,8 +13,7 @@ import java.util.List;
 public class Account {
 private String id;
 private String password;
-private String auth;
-
-private List<GrantedAuthority> authorities;
+private String auth;  // 권한
+private List<GrantedAuthority> authorities; //권한관리
 }
 

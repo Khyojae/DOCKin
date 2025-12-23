@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    // users 테이블의 user_id (VARCHAR(50) PRIMARY KEY)에 매핑
     @Id
     private String userId;
 
@@ -38,6 +37,5 @@ public class User {
     @Column(nullable = false)
     private String shipYardArea;
 
-    // 편의상 @Builder나 생성자는 생략합니다.
-    // ...
+
 }

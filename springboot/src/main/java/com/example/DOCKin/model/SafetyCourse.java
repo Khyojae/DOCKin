@@ -41,7 +41,7 @@ public class SafetyCourse {
     public SafetyCourse(String title, String description, String materialUrl, Integer durationMinutes, String createdBy) {
         this.title = title;
         this.description = description;
-        this.videoUrl = materialUrl; // ⭐ materialUrl 인자를 videoUrl 필드에 할당
+        this.videoUrl = materialUrl; // materialUrl 인자를 videoUrl 필드에 할당
         this.materialUrl = materialUrl;
         this.durationMinutes = durationMinutes;
         this.createdBy = createdBy;
@@ -52,7 +52,7 @@ public class SafetyCourse {
     public void update(String title, String description, String materialUrl, Integer durationMinutes) {
         this.title = title;
         this.description = description;
-        this.videoUrl = materialUrl; // ⭐ materialUrl 인자를 videoUrl 필드에 할당
+        this.videoUrl = materialUrl; //materialUrl 인자를 videoUrl 필드에 할당
         this.materialUrl = materialUrl;
         this.durationMinutes = durationMinutes;
     }

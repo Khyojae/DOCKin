@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class Work_logsService {
     private final MemberRepository memberRepository;
     private final Work_logsRepository work_logsRepository;
-    private final SttApiService sttApiService;
     private final EquipmentRepository equipmentRepository;
     /**
      * DTO 변환 메소드: Entity -> DTO
@@ -81,30 +80,7 @@ public class Work_logsService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public Work_logsDto processSttAndSave(String userId, MultipartFile file, WorkLogsCreateRequestDto metadata){
-        Member member = memberRepository.findByUserId(userId)
-                .orElseThrow(()->new RuntimeException("사용자를 찾을 수 없습니다."));
 
-        Equipment equipment = null;
-        if(metadata.getEquipmentId() != null) {
-            equipment = equipmentRepository.findById(metadata.getEquipmentId())
-                    .orElse(null);
-        }
-
-
-        String transcribedText = sttApiService.callSttApi(file);
-
-        Work_logs newLog = Work_logs.builder()
-                .member(member)
-                .title(metadata.getTitle()!= null ? metadata.getTitle() : "작업일지")
-                .log_text(transcribedText)
-                .equipment(equipment)
-                .build();
-
-        newLog = work_logsRepository.save(newLog);
-        return Work_logsDto.toDto(newLog);
-    }
 
     // --- 3. READ SINGLE: 특정 작업 일지 상세 조회 ---
     public Work_logsDto getWorkLog(String userId, Long logId){

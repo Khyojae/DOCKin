@@ -34,8 +34,10 @@ dependencies {
     // ----------------------------------------
     // CORE (Spring Boot Starter)
     // ----------------------------------------
+    // Springdoc-openapi
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
-    // Web 환경 (WebFlux와 Web을 모두 사용하고 계시지만, 보통 하나만 사용합니다. 둘 다 추가했습니다.)
+    // Web 환경
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
@@ -90,6 +92,14 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    archiveFileName.set("app.jar")
 }
 
 // JUnit 5 (Platform) 사용 설정
