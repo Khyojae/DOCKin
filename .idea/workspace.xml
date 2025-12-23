@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecb3a057-5579-4454-8c65-be901a801d8a" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/workflow.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/gradle/task-definition.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -251,7 +249,8 @@
       <workItem from="1766337608778" duration="24000" />
       <workItem from="1766378994358" duration="3997000" />
       <workItem from="1766384987511" duration="56000" />
-      <workItem from="1766481816415" duration="6005000" />
+      <workItem from="1766481816415" duration="6122000" />
+      <workItem from="1766490670870" duration="388000" />
     </task>
     <servers />
   </component>
