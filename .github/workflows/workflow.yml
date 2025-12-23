@@ -39,14 +39,16 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      # 6. Docker 이미지 빌드 및 ECR 푸시
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          # 시크릿 대신 실제 값을 직접 넣어보세요.
+          ECR_REGISTRY: 055447613012.dkr.ecr.ap-northeast-2.amazonaws.com
           IMAGE_TAG: ${{ github.sha }}
-          # 시크릿 문제 해결을 위해 이름을 직접 적었습니다.
           ECR_REPOSITORY: dockin-hackathon
         run: |
+          # 빌드와 푸시를 진행합니다.
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./springboot
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
