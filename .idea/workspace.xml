@@ -5,36 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ecb3a057-5579-4454-8c65-be901a801d8a" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/springboot/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/DbTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/DemoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/DOCKin.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/DOCKin.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/DOCKin.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/DOCKin.test.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/workflow.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot/gradle/task-definition.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/controller/SafetyAgreementAdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/controller/WorkLogsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/controller/WorkLogsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/dto/NLLBTranslationRequestDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/dto/NLLBTranslationResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/Equipment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/LaborAgreement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/LaborAgreementId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/MemberUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/MemberUserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/SafetyCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/SafetyCourse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/ChatRoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/ChatRoomRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/LaborAgreementRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/SafetyEnrollmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/repository/SafetyEnrollmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/SafetyAgreementService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/SttApiService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/SttApiServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/Work_logsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/java/com/example/DOCKin/service/Work_logsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springboot/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/springboot/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +43,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="GitHub Workflow" />
       </list>
     </option>
   </component>
@@ -277,7 +251,7 @@
       <workItem from="1766337608778" duration="24000" />
       <workItem from="1766378994358" duration="3997000" />
       <workItem from="1766384987511" duration="56000" />
-      <workItem from="1766481816415" duration="2850000" />
+      <workItem from="1766481816415" duration="6005000" />
     </task>
     <servers />
   </component>
