@@ -35,24 +35,27 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # 5. Amazon ECR 로그인 (들여쓰기 교정됨)
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registries: "055447613012"
 
-      # 6. Docker 이미지 빌드 및 ECR 푸시
+      # 6. Docker 이미지 빌드 및 ECR 푸시 (들여쓰기 교정됨)
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        env:
-          # 시크릿 대신 실제 값을 직접 넣어보세요.
-          ECR_REGISTRY: 055447613012.dkr.ecr.ap-northeast-2.amazonaws.com
-          IMAGE_TAG: ${{ github.sha }}
-          ECR_REPOSITORY: dockin-hackathon
         run: |
-          # 빌드와 푸시를 진행합니다.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./springboot
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          REGISTRY="055447613012.dkr.ecr.ap-northeast-2.amazonaws.com"
+          REPOSITORY="dockin-hackathon"
+          IMAGE_TAG="${{ github.sha }}"
+          
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./springboot
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          
+          echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+      # 7. ECS 배포 (경로: springboot/task-definition.json 확인됨)
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
