@@ -25,9 +25,10 @@ jobs:
           distribution: 'temurin'
           cache: gradle # Gradle 빌드 속도를 높이기 위해 캐싱 사용
 
-      # 3. Gradle 빌드 (테스트 제외하고 jar 파일 생성)
+      # 3. Gradle 빌드
       - name: Build with Gradle
         run: ./gradlew build -x test
+        working-directory: ./springboot[DOCKin]  # 이 줄을 추가하세요!
 
       # 4. AWS 자격 증명 설정 (우리가 만든 IAM Role 사용)
       - name: Configure AWS credentials
@@ -49,9 +50,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }} # 커밋 해시를 이미지 태그로 사용
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          # ./springboot[DOCKin] 폴더 안으로 들어가서 Dockerfile을 실행하도록 경로 지정
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./springboot[DOCKin]
 
       # 7. ECS 서비스 업데이트 (배포 실행)
       - name: Deploy Amazon ECS task definition
